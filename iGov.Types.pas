@@ -2,24 +2,10 @@ unit iGov.Types;
 
 interface
 
-type
+uses
+  System.JSON.Serializers;
 
-  TBaseItem = class
-  private
-    [JsonName('nID')]
-    FID: Integer;
-    [JsonName('nOrder')]
-    FOrder: Integer;
-    [JsonName('sID')]
-    FIDText: string;
-    [JsonName('sName')]
-    FName: string;
-  public
-    property ID: Integer read FID write FID;
-    property Order: Integer read FOrder write FOrder;
-    property IDText: string read FIDText write FIDText;
-    property Name: string read FName write FName;
-  end;
+type
 
   TService = class
   private
@@ -40,13 +26,24 @@ type
     property Service: TArray<TSubCategory> read FService write FService;
   end;
 
-  TCategory = class(TBaseItem)
+  TCategory = class
   private
     [JsonName('aSubcategory')]
     FSubcategory: TArray<TSubCategory>;
+    [JsonName('nID')]
+    FID: Integer;
+    [JsonName('nOrder')]
+    FOrder: Integer;
+    [JsonName('sID')]
+    FIDText: string;
+    [JsonName('sName')]
+    FName: string;
   public
     property Subcategory: TArray<TSubCategory> read FSubcategory write FSubcategory;
-
+    property ID: Integer read FID write FID;
+    property Order: Integer read FOrder write FOrder;
+    property IDText: string read FIDText write FIDText;
+    property Name: string read FName write FName;
   end;
 
 implementation

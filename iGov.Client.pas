@@ -3,6 +3,7 @@ unit iGov.Client;
 interface
 
 uses
+  iGov.Types,
   CloudAPI.Client.Sync;
 
 type
@@ -11,12 +12,27 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    function Catalog: string;
+    function Catalog: TArray<TCategory>;
   end;
 
 implementation
 
+uses
+  CloudAPI.Request, CloudAPI.Types, CloudAPI.Response;
+
 { TiGovApiClient }
+
+function TiGovApiClient.Catalog: TArray<TCategory>;
+var
+  LRequest: IcaRequest;
+  LResponse: IcaResponse<TArray<TCategory>>;
+begin
+  LRequest := TcaRequest.Create;
+  LRequest.Resource := 'catalog';
+  LRequest.AddParam('bShowEmptyFolders', False, TcaParameterType.GetOrPost);
+  LResponse := FAPI.Execute < TArray < TCategory >> (LRequest);
+  Result := LResponse.Data;
+end;
 
 constructor TiGovApiClient.Create;
 begin
