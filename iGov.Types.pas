@@ -6,14 +6,44 @@ uses
   System.JSON.Serializers;
 
 type
+  TIgoCity = class
+  private
+    [JsonName('nID')]
+    FID: integer;
+    [JsonName('sID_UA')]
+    FIDText: string;
+    [JsonName('sName')]
+    FName: string;
+  public
+    property ID: integer read FID write FID;
+    property IDText: string read FIDText write FIDText;
+    property Name: string read FName write FName;
+  end;
+
+  TigoRegions = class
+  private
+    [JsonName('nID')]
+    FID: integer;
+    [JsonName('sID_UA')]
+    FIDText: string;
+    [JsonName('sName')]
+    FName: string;
+    [JsonName('aCity')]
+    FCity: TArray<TIgoCity>;
+  public
+    property ID: integer read FID write FID;
+    property IDText: string read FIDText write FIDText;
+    property Name: string read FName write FName;
+    property City: TArray<TIgoCity> read FCity write FCity;
+  end;
 
   TService = class
   private
-    FOpenedLimit: Integer;
+    FOpenedLimit: integer;
     FSubjectOperatorName: string;
     FKeyword: string;
   public
-    property OpenedLimit: Integer read FOpenedLimit write FOpenedLimit;
+    property OpenedLimit: integer read FOpenedLimit write FOpenedLimit;
     property SubjectOperatorName: string read FSubjectOperatorName write FSubjectOperatorName;
     property Keyword: string read FKeyword write FKeyword;
   end;
@@ -31,17 +61,17 @@ type
     [JsonName('aSubcategory')]
     FSubcategory: TArray<TSubCategory>;
     [JsonName('nID')]
-    FID: Integer;
+    FID: integer;
     [JsonName('nOrder')]
-    FOrder: Integer;
+    FOrder: integer;
     [JsonName('sID')]
     FIDText: string;
     [JsonName('sName')]
     FName: string;
   public
     property Subcategory: TArray<TSubCategory> read FSubcategory write FSubcategory;
-    property ID: Integer read FID write FID;
-    property Order: Integer read FOrder write FOrder;
+    property ID: integer read FID write FID;
+    property Order: integer read FOrder write FOrder;
     property IDText: string read FIDText write FIDText;
     property Name: string read FName write FName;
   end;

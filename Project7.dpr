@@ -21,9 +21,22 @@ begin
   end;
 end;
 
+procedure GetRegions;
+var
+  LiGov: TiGovApiClient;
+  LCat: TArray<TigoRegions>;
+begin
+  LiGov := TiGovApiClient.Create;
+  try
+    LCat := LiGov.Regions;
+  finally
+    LiGov.Free;
+  end;
+end;
+
 begin
   try
-    test;
+    GetRegions;
     { TODO -oUser -cConsole Main : Insert code here }
   except
     on E: Exception do

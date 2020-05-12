@@ -13,6 +13,7 @@ type
     constructor Create;
     destructor Destroy; override;
     function Catalog: TArray<TCategory>;
+    function Regions: TArray<TigoRegions>;
   end;
 
 implementation
@@ -37,13 +38,24 @@ end;
 constructor TiGovApiClient.Create;
 begin
   FAPI := TCloudApiClient.Create;
-  FAPI.BaseUrl := 'https://igov.gov.ua/api/catalog?bShowEmptyFolders=false';
+  FAPI.BaseUrl := 'https://igov.gov.ua/api';
 end;
 
 destructor TiGovApiClient.Destroy;
 begin
   FAPI.Free;
   inherited;
+end;
+
+function TiGovApiClient.Regions: TArray<TigoRegions>;
+var
+  LRequest: IcaRequest;
+  LResponse: IcaResponse<TArray<TigoRegions>>;
+begin
+  LRequest := TcaRequest.Create;
+  LRequest.Resource := 'places/regions';
+  LResponse := FAPI.Execute < TArray < TigoRegions >> (LRequest);
+  Result := LResponse.Data;
 end;
 
 end.

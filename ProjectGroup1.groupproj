@@ -1,16 +1,13 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{6E7E0779-73C4-40AC-BDBE-9402340AF107}</ProjectGuid>
+        <ProjectGuid>{52089CBA-BD58-412F-8AAB-1240438B60FD}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="CloudAPI\CloudAPI.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="iGovApi.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="Project7.dproj">
-            <Dependencies/>
+            <Dependencies>iGovApi.dproj</Dependencies>
         </Projects>
     </ItemGroup>
     <ProjectExtensions>
@@ -20,15 +17,6 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="CloudAPI">
-        <MSBuild Projects="CloudAPI\CloudAPI.dproj"/>
-    </Target>
-    <Target Name="CloudAPI:Clean">
-        <MSBuild Projects="CloudAPI\CloudAPI.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="CloudAPI:Make">
-        <MSBuild Projects="CloudAPI\CloudAPI.dproj" Targets="Make"/>
-    </Target>
     <Target Name="iGovApi">
         <MSBuild Projects="iGovApi.dproj"/>
     </Target>
@@ -38,23 +26,23 @@
     <Target Name="iGovApi:Make">
         <MSBuild Projects="iGovApi.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Project7">
+    <Target Name="Project7" DependsOnTargets="iGovApi">
         <MSBuild Projects="Project7.dproj"/>
     </Target>
-    <Target Name="Project7:Clean">
+    <Target Name="Project7:Clean" DependsOnTargets="iGovApi:Clean">
         <MSBuild Projects="Project7.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="Project7:Make">
+    <Target Name="Project7:Make" DependsOnTargets="iGovApi:Make">
         <MSBuild Projects="Project7.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="CloudAPI;iGovApi;Project7"/>
+        <CallTarget Targets="iGovApi;Project7"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="CloudAPI:Clean;iGovApi:Clean;Project7:Clean"/>
+        <CallTarget Targets="iGovApi:Clean;Project7:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="CloudAPI:Make;iGovApi:Make;Project7:Make"/>
+        <CallTarget Targets="iGovApi:Make;Project7:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
