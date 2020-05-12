@@ -9,7 +9,7 @@ type
   TigovService = class
   private
     [JsonName('aServiceData')]
-    FServiceData: string;
+    FServiceData: TArray<string>;
     [JsonName('nID')]
     FID: Integer;
     [JsonName('nID_Status')]
@@ -35,7 +35,7 @@ type
     [JsonName('saKeyword')]
     FKeyword: string;
   public
-    property ServiceData: string read FServiceData write FServiceData;
+    property ServiceData: TArray<string> read FServiceData write FServiceData;
     property ID: Integer read FID write FID;
     property IDStatus: Integer read FID_Status write FID_Status;
     property OpenedLimit: Integer read FOpenedLimit write FOpenedLimit;
@@ -73,7 +73,7 @@ type
     property Name: string read FName write FName;
   end;
 
-  TigovRegions = class
+  TigovRegion = class
   private
     [JsonName('nID')]
     FID: Integer;

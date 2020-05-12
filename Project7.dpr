@@ -24,7 +24,7 @@ end;
 procedure GetRegions;
 var
   LiGov: TiGovApiClient;
-  LCat: TArray<TigoRegions>;
+  LCat: TArray<TigovRegions>;
 begin
   LiGov := TiGovApiClient.Create;
   try
@@ -34,9 +34,24 @@ begin
   end;
 end;
 
+procedure GetCatalogTree;
+var
+  LiGov: TiGovApiClient;
+  LCat: TArray<TigovRegions>;
+  LTree:TigoCatalogTree;
+begin
+  LiGov := TiGovApiClient.Create;
+  try
+    LCat := LiGov.Regions;
+    LTree := LiGov.GetCatalogTree(LiGov.Regions[6].City[16]);
+  finally
+    LiGov.Free;
+  end;
+end;
+
 begin
   try
-    GetRegions;
+    GetCatalogTree;
     { TODO -oUser -cConsole Main : Insert code here }
   except
     on E: Exception do

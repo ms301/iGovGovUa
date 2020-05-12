@@ -9,6 +9,9 @@
         <Projects Include="Project7.dproj">
             <Dependencies>iGovApi.dproj</Dependencies>
         </Projects>
+        <Projects Include="Sample\Project12.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="Project7:Make" DependsOnTargets="iGovApi:Make">
         <MSBuild Projects="Project7.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Project12">
+        <MSBuild Projects="Sample\Project12.dproj"/>
+    </Target>
+    <Target Name="Project12:Clean">
+        <MSBuild Projects="Sample\Project12.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project12:Make">
+        <MSBuild Projects="Sample\Project12.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="iGovApi;Project7"/>
+        <CallTarget Targets="iGovApi;Project7;Project12"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="iGovApi:Clean;Project7:Clean"/>
+        <CallTarget Targets="iGovApi:Clean;Project7:Clean;Project12:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="iGovApi:Make;Project7:Make"/>
+        <CallTarget Targets="iGovApi:Make;Project7:Make;Project12:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

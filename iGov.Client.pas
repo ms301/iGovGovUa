@@ -13,7 +13,8 @@ type
     constructor Create;
     destructor Destroy; override;
     function Catalog: TArray<TCategory>;
-    function Regions: TArray<TigoRegions>;
+    function Regions: TArray<TigovRegion>;
+    function getCatalogTree(ACity: TigovCity): TigoCatalogTree;
   end;
 
 implementation
@@ -47,14 +48,30 @@ begin
   inherited;
 end;
 
-function TiGovApiClient.Regions: TArray<TigoRegions>;
+function TiGovApiClient.getCatalogTree(ACity: TigovCity): TigoCatalogTree;
 var
   LRequest: IcaRequest;
-  LResponse: IcaResponse<TArray<TigoRegions>>;
+  LResponse: IcaResponse<TigoCatalogTree>;
+begin
+  LRequest := TcaRequest.Create;
+  LRequest.Resource := 'catalog/getCatalogTree';
+  if Assigned(ACity) then
+    LRequest.AddQueryParameter('asIDPlaceUA', 'undefined,' + ACity.IDText);
+  LRequest.AddQueryParameter('bNew', 'true');
+  LRequest.AddQueryParameter('ShowEmptyFolders', 'false');
+  LRequest.AddQueryParameter('nID_Category', '1');
+  LResponse := FAPI.Execute<TigoCatalogTree>(LRequest);
+  Result := LResponse.Data;
+end;
+
+function TiGovApiClient.Regions: TArray<TigovRegion>;
+var
+  LRequest: IcaRequest;
+  LResponse: IcaResponse<TArray<TigovRegion>>;
 begin
   LRequest := TcaRequest.Create;
   LRequest.Resource := 'places/regions';
-  LResponse := FAPI.Execute < TArray < TigoRegions >> (LRequest);
+  LResponse := FAPI.Execute < TArray < TigovRegion >> (LRequest);
   Result := LResponse.Data;
 end;
 
