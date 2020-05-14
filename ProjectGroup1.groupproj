@@ -9,7 +9,7 @@
         <Projects Include="Project7.dproj">
             <Dependencies>iGovApi.dproj</Dependencies>
         </Projects>
-        <Projects Include="Sample\Project12.dproj">
+        <Projects Include="Sample\Client\iGovClient.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -38,23 +38,23 @@
     <Target Name="Project7:Make" DependsOnTargets="iGovApi:Make">
         <MSBuild Projects="Project7.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Project12">
-        <MSBuild Projects="Sample\Project12.dproj"/>
+    <Target Name="iGovClient">
+        <MSBuild Projects="Sample\Client\iGovClient.dproj"/>
     </Target>
-    <Target Name="Project12:Clean">
-        <MSBuild Projects="Sample\Project12.dproj" Targets="Clean"/>
+    <Target Name="iGovClient:Clean">
+        <MSBuild Projects="Sample\Client\iGovClient.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="Project12:Make">
-        <MSBuild Projects="Sample\Project12.dproj" Targets="Make"/>
+    <Target Name="iGovClient:Make">
+        <MSBuild Projects="Sample\Client\iGovClient.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="iGovApi;Project7;Project12"/>
+        <CallTarget Targets="iGovApi;Project7;iGovClient"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="iGovApi:Clean;Project7:Clean;Project12:Clean"/>
+        <CallTarget Targets="iGovApi:Clean;Project7:Clean;iGovClient:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="iGovApi:Make;Project7:Make;Project12:Make"/>
+        <CallTarget Targets="iGovApi:Make;Project7:Make;iGovClient:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
