@@ -3,37 +3,37 @@ unit iGov.Client;
 interface
 
 uses
-  iGov.Types,
-  CloudAPI.Client.Sync;
+  CloudAPI.Client.Sync,
+  iGov.Types.Response,
+  iGov.Types.Request;
 
 type
   TiGovApiClient = class
+  private
     FAPI: TCloudApiClient;
+  protected
+    function InternalExec<TRequest: record; TResponse>(ARequest: TRequest): TResponse;
   public
     constructor Create;
     destructor Destroy; override;
-    function Catalog: TArray<TCategory>;
-    function Regions: TArray<TigovRegion>;
-    function getCatalogTree(ACity: TigovCity): TigoCatalogTree;
+    function Catalog(ACatalogRequest: TigovCatalogRequest): TArray<TigovCategory>;
+    function Regions(ARegionRequest: TigovRegionsRequest): TArray<TigovRegion>;
+    function getCatalogTree(ACatalogTreeRequest: TigovCatalogTreeRequest): TigovCatalogTree;
   end;
 
 implementation
 
 uses
-  CloudAPI.Request, CloudAPI.Types, CloudAPI.Response;
+  CloudAPI.Request,
+  CloudAPI.RequestArgument,
+  CloudAPI.Response,
+  CloudAPI.Types;
 
 { TiGovApiClient }
 
-function TiGovApiClient.Catalog: TArray<TCategory>;
-var
-  LRequest: IcaRequest;
-  LResponse: IcaResponse<TArray<TCategory>>;
+function TiGovApiClient.Catalog(ACatalogRequest: TigovCatalogRequest): TArray<TigovCategory>;
 begin
-  LRequest := TcaRequest.Create;
-  LRequest.Resource := 'catalog';
-  LRequest.AddParam('bShowEmptyFolders', False, TcaParameterType.GetOrPost);
-  LResponse := FAPI.Execute < TArray < TCategory >> (LRequest);
-  Result := LResponse.Data;
+  Result := InternalExec < TigovCatalogRequest, TArray < TigovCategory >> (ACatalogRequest);
 end;
 
 constructor TiGovApiClient.Create;
@@ -48,31 +48,22 @@ begin
   inherited;
 end;
 
-function TiGovApiClient.getCatalogTree(ACity: TigovCity): TigoCatalogTree;
-var
-  LRequest: IcaRequest;
-  LResponse: IcaResponse<TigoCatalogTree>;
+function TiGovApiClient.getCatalogTree(ACatalogTreeRequest: TigovCatalogTreeRequest): TigovCatalogTree;
 begin
-  LRequest := TcaRequest.Create;
-  LRequest.Resource := 'catalog/getCatalogTree';
-  if Assigned(ACity) then
-    LRequest.AddQueryParameter('asIDPlaceUA', 'undefined,' + ACity.IDText);
-  LRequest.AddQueryParameter('bNew', 'true');
-  LRequest.AddQueryParameter('ShowEmptyFolders', 'false');
-  LRequest.AddQueryParameter('nID_Category', '1');
-  LResponse := FAPI.Execute<TigoCatalogTree>(LRequest);
-  Result := LResponse.Data;
+  Result := InternalExec<TigovCatalogTreeRequest, TigovCatalogTree>(ACatalogTreeRequest);
 end;
 
-function TiGovApiClient.Regions: TArray<TigovRegion>;
+function TiGovApiClient.InternalExec<TRequest, TResponse>(ARequest: TRequest): TResponse;
 var
-  LRequest: IcaRequest;
-  LResponse: IcaResponse<TArray<TigovRegion>>;
+  LReq: IcaRequest;
 begin
-  LRequest := TcaRequest.Create;
-  LRequest.Resource := 'places/regions';
-  LResponse := FAPI.Execute < TArray < TigovRegion >> (LRequest);
-  Result := LResponse.Data;
+  LReq := TcaRequestArgument.ObjToRequest<TRequest>(ARequest);
+  Result := FAPI.Execute<TResponse>(LReq).Data;
+end;
+
+function TiGovApiClient.Regions(ARegionRequest: TigovRegionsRequest): TArray<TigovRegion>;
+begin
+  Result := InternalExec < TigovRegionsRequest, TArray < TigovRegion >> (ARegionRequest);
 end;
 
 end.

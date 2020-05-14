@@ -95,7 +95,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\iGov.Client.pas"/>
-        <DCCReference Include="..\iGov.Types.pas"/>
+        <DCCReference Include="..\iGov.Types.Response.pas"/>
         <DCCReference Include="..\CloudAPI\CloudAPI.Attributes.pas"/>
         <DCCReference Include="..\CloudAPI\CloudAPI.Authenticator.Basic.pas"/>
         <DCCReference Include="..\CloudAPI\CloudAPI.Client.Async.pas"/>
@@ -114,6 +114,7 @@
         <DCCReference Include="..\CloudAPI\CloudAPI.RequestArgument.pas"/>
         <DCCReference Include="..\CloudAPI\CloudAPI.Response.pas"/>
         <DCCReference Include="..\CloudAPI\CloudAPI.Types.pas"/>
+        <DCCReference Include="..\iGov.Types.Request.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

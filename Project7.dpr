@@ -11,11 +11,11 @@ uses
 procedure test;
 var
   LiGov: TiGovApiClient;
-  LCat: TArray<TCategory>;
+  LCat: TArray<TigovCategory>;
 begin
   LiGov := TiGovApiClient.Create;
   try
-    LCat := LiGov.Catalog;
+    LCat := LiGov.Catalog(TigovCatalogRequest.Default);
   finally
     LiGov.Free;
   end;
@@ -24,11 +24,11 @@ end;
 procedure GetRegions;
 var
   LiGov: TiGovApiClient;
-  LCat: TArray<TigovRegions>;
+  LCat: TArray<TigovRegion>;
 begin
   LiGov := TiGovApiClient.Create;
   try
-    LCat := LiGov.Regions;
+    LCat := LiGov.Regions(TigovRegionsRequest.Default);
   finally
     LiGov.Free;
   end;
@@ -37,13 +37,13 @@ end;
 procedure GetCatalogTree;
 var
   LiGov: TiGovApiClient;
-  LCat: TArray<TigovRegions>;
-  LTree:TigoCatalogTree;
+  LCat: TArray<TigovRegion>;
+  LTree: TigovCatalogTree;
 begin
   LiGov := TiGovApiClient.Create;
   try
-    LCat := LiGov.Regions;
-    LTree := LiGov.GetCatalogTree(LiGov.Regions[6].City[16]);
+    LCat := LiGov.Regions(TigovRegionsRequest.Default);
+    // LTree := LiGov.GetCatalogTree(LiGov.Regions[6].City[16]);
   finally
     LiGov.Free;
   end;
@@ -51,7 +51,7 @@ end;
 
 begin
   try
-    GetCatalogTree;
+    test;
     { TODO -oUser -cConsole Main : Insert code here }
   except
     on E: Exception do

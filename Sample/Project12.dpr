@@ -4,7 +4,7 @@ uses
   Vcl.Forms,
   Unit9 in 'Unit9.pas' {Form9},
   iGov.Client in '..\iGov.Client.pas',
-  iGov.Types in '..\iGov.Types.pas',
+  iGov.Types.Response in '..\iGov.Types.Response.pas',
   CloudAPI.Attributes in '..\CloudAPI\CloudAPI.Attributes.pas',
   CloudAPI.Authenticator.Basic in '..\CloudAPI\CloudAPI.Authenticator.Basic.pas',
   CloudAPI.Client.Async in '..\CloudAPI\CloudAPI.Client.Async.pas',
@@ -22,7 +22,8 @@ uses
   CloudAPI.Request in '..\CloudAPI\CloudAPI.Request.pas',
   CloudAPI.RequestArgument in '..\CloudAPI\CloudAPI.RequestArgument.pas',
   CloudAPI.Response in '..\CloudAPI\CloudAPI.Response.pas',
-  CloudAPI.Types in '..\CloudAPI\CloudAPI.Types.pas';
+  CloudAPI.Types in '..\CloudAPI\CloudAPI.Types.pas',
+  iGov.Types.Request in '..\iGov.Types.Request.pas';
 
 {$R *.res}
 
