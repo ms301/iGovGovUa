@@ -41,12 +41,16 @@ type
     FNew: Boolean;
     [caName('asIDPlaceUA')]
     FasIDPlaceUA: string;
+    [caName('sFind')]
+    [caDefaultValueString('')]
+    FFind: string;
   public
     class function Default: TigovCatalogTreeRequest; static;
     property ID_Category: Integer read FID_Category write FID_Category;
     property ShowEmptyFolders: Boolean read FShowEmptyFolders write FShowEmptyFolders;
     property New: Boolean read FNew write FNew;
     property IDPlaceUA: string read FasIDPlaceUA write FasIDPlaceUA;
+    property Find: string read FFind write FFind;
   end;
 
 implementation
@@ -72,6 +76,7 @@ begin
   Result.ShowEmptyFolders := False;
   Result.New := True;
   Result.IDPlaceUA := '';
+  Result.Find := '';
 end;
 
 end.
