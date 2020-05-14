@@ -31,9 +31,10 @@ requires
   rtl;
 
 contains
-  iGov.Client in 'iGov.Client.pas',
+  iGov.Client.ASync in 'iGov.Client.ASync.pas',
   iGov.Types.Response in 'iGov.Types.Response.pas',
   iGov.Types.Request in 'iGov.Types.Request.pas',
-  iGov.Types in 'iGov.Types.pas';
+  iGov.Types in 'iGov.Types.pas',
+  iGov.Client in 'iGov.Client.pas';
 
 end.

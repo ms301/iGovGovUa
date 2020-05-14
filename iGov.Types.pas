@@ -15,6 +15,7 @@ type
   TigovService = iGov.Types.Response.TigovService;
   TigovCategory = iGov.Types.Response.TigovCategory;
   TigovRegion = iGov.Types.Response.TigovRegion;
+  TigovCity = iGov.Types.Response.TigovCity;
   TigovCatalogTree = iGov.Types.Response.TigovCatalogTree;
 {$ENDREGION}
 
